@@ -92,6 +92,52 @@ orderSchema.methods.sendMailAfterPurchase = (cb) ->
       </div>
       </html>"
     postman.send @store, @customer, "Pedido realizado", body, cb
+orderSchema.methods.sendClientMailAfterPurchase = (cb) ->
+  @populate 'store customer', =>
+    body = "<html>
+      <h1>#{@store.name}</h1>
+      <h2>Recebemos seu pedido</h2>
+      <div>Você será avisado assim que ele for liberado.</div>
+      <div>Total da venda: R$ #{@totalSaleAmount}</div>
+      <div>
+        Não deixe de avaliar o vendedor e sua loja quando receber seu pedido. Você pode fazer isso
+        clicando em 'Pedidos realizados' no menu, ou 'Ver pedidos' na <a href='https://www.atelies.com.br/account'>página da sua conta</a>.
+      </div>
+      <div>
+        Você pode ver o seu pedido e também avaliá-lo clicando <a href='https://www.atelies.com.br/account#orders/#{@_id.toString()}'>aqui</a>.
+      </div>
+      <div>&nbsp;</div>
+      <div>
+        Obrigado!
+      </div>
+      <div>
+        #{@store.name}
+      </div>
+      </html>"
+    postman.send @store, @customer, "Pedido realizado", body, cb
+orderSchema.methods.sendStoreMailAfterPurchase = (cb) ->
+  @populate 'store customer', =>
+    body = "<html>
+      <h1>#{@store.name}</h1>
+      <h2>Recebemos seu pedido</h2>
+      <div>Você será avisado assim que ele for liberado.</div>
+      <div>Total da venda: R$ #{@totalSaleAmount}</div>
+      <div>
+        Não deixe de avaliar o vendedor e sua loja quando receber seu pedido. Você pode fazer isso
+        clicando em 'Pedidos realizados' no menu, ou 'Ver pedidos' na <a href='https://www.atelies.com.br/account'>página da sua conta</a>.
+      </div>
+      <div>
+        Você pode ver o seu pedido e também avaliá-lo clicando <a href='https://www.atelies.com.br/account#orders/#{@_id.toString()}'>aqui</a>.
+      </div>
+      <div>&nbsp;</div>
+      <div>
+        Obrigado!
+      </div>
+      <div>
+        #{@store.name}
+      </div>
+      </html>"
+    postman.send @store, @customer, "Pedido realizado", body, cb
 
 module.exports = Order = mongoose.model 'order', orderSchema
 
